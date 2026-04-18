@@ -24,7 +24,7 @@ pip install requests
 ## Usage
 
 ```
-python magic_the_gathering_api_lookup.py
+python main.py
 ```
 
 You'll be prompted to enter a card name. Type `Q` to quit.
