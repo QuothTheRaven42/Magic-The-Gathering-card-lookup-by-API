@@ -51,7 +51,7 @@ Under Development:
 Scryfall's docs specifically ask that tools identify themselves with a header 
 Example: {"User-Agent": "MTGLookupTool/1.0 (email)"}. 
 
--Card class
+- Card class
 Currently pulling keys off a raw dictionary. 
 Wrapping the response in a Card class with proper attributes — 
 name, mana cost, type line, rarity, oracle text, prices — 
@@ -65,7 +65,7 @@ Easy to layer on once the Card class exists.
 Replacing the input() loop with command-line arguments — python mtg.py "Black Lotus." 
 Optional flags like --price-only or --set give natural control flow to write.
 
-Error handling and retry logic
+- Error handling and retry logic
 Handle non-200 responses explicitly — 404 should surface Scryfall's own error message to the user. 
 Transient failures like timeouts and 429 rate limit responses should trigger a retry with a short delay between attempts. 
 Cap retries at a reasonable maximum before failing gracefully. 
