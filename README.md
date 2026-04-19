@@ -49,7 +49,7 @@ Unsanctioned
 - Double-faced cards (like split cards or transform cards) display oracle text for each face separately
 - No API key required — Scryfall's API is free and open
 
-## Under Development:
+## Under Development
 
 Under Development
 
