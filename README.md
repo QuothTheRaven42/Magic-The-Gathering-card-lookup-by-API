@@ -51,7 +51,7 @@ Unsanctioned
 
 ## Under Development:
 
-Under Development:
+Under Development
 
 - User-Agent header:
 Scryfall's docs specifically ask that tools identify themselves with a header 
