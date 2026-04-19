@@ -5,7 +5,7 @@ A command-line tool for looking up Magic: The Gathering cards using the [Scryfal
 ## Features
 
 - Fuzzy name matching — close enough usually works
-- Displays mana cost, oracle text, type line, and set name
+- Displays mana cost, oracle text, type line, etc.
 - Handles double-faced and multi-faced cards
 - Power/toughness displayed for creature cards
 - Loop stays open for multiple lookups in one session
@@ -30,17 +30,14 @@ python main.py
 You'll be prompted to enter a card name. Type `Q` to quit.
 
 ```
-Enter card name (Q to quit): who what when where why
+Enter card name (Q to quit): jumbo cactuar
 
-Who // What // When // Where // Why
-Mana cost: {X}{W} // {2}{R} // {2}{U} // {3}{B} // {1}{G}
-Side 1: Target player gains X life.
-Side 2: Destroy target artifact.
-Side 3: Counter target creature spell.
-Side 4: Destroy target land.
-Side 5: Destroy target enchantment.
-Instant
-Unsanctioned
+Jumbo Cactuar
+Mana cost: {5}{G}{G}
+10,000 Needles — Whenever this creature attacks, it gets +9999/+0 until end of turn.
+Rare Creature — Plant
+Power/Toughness: 1/7
+Card art: https://cards.scryfall.io/art_crop/front/d/b/db01c222-8795-47e9-a789-e7f749a3ee7d.jpg?1748706475 by Jason Kiantoro
 ```
 
 ## Notes
