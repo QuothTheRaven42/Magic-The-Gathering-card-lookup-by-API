@@ -30,13 +30,17 @@ python main.py
 You'll be prompted to enter a card name. Type `Q` to quit.
 
 ```
-Enter card name (Q to quit): lightning bolt
+Enter card name (Q to quit): who what when where why
 
-Lightning Bolt
-Mana cost: {R}
-Deal 3 damage to any target.
+Who // What // When // Where // Why
+Mana cost: {X}{W} // {2}{R} // {2}{U} // {3}{B} // {1}{G}
+Side 1: Target player gains X life.
+Side 2: Destroy target artifact.
+Side 3: Counter target creature spell.
+Side 4: Destroy target land.
+Side 5: Destroy target enchantment.
 Instant
-Mystery Booster
+Unsanctioned
 ```
 
 ## Notes
