@@ -21,7 +21,7 @@ def main():
         if response.status_code == 200:
             print(f"\n{card['name']}\nMana cost: {card['mana_cost']}")
 
-            # check for multi-faced cards like Gleemax
+            # check for multi-faced cards like Who//What//When//Where//Why
             if "oracle_text" in card:
                 print(f"{card['oracle_text']}")
             else:
