@@ -51,8 +51,6 @@ Unsanctioned
 
 ## Under Development
 
-Under Development
-
 - User-Agent header:
 Scryfall's docs specifically ask that tools identify themselves with a header 
 Example: {"User-Agent": "MTGLookupTool/1.0 (email)"}. 
