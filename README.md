@@ -48,7 +48,7 @@ Card art: https://cards.scryfall.io/art_crop/front/d/b/db01c222-8795-47e9-a789-e
 
 ## Under Development
 
-- User-Agent header:
+- **User-Agent header**:
 Scryfall's docs specifically ask that tools identify themselves with a header 
 Example: {"User-Agent": "MTGLookupTool/1.0 (email)"}. 
 
