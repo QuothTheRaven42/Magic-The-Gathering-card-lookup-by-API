@@ -16,7 +16,6 @@ def main():
             break
 
         response, card = card_lookup(card_choice)
-
         # successful lookup
         if response.status_code == 200:
             print(f"\n{card['name']}\nMana cost: {card['mana_cost']}")
@@ -27,15 +26,16 @@ def main():
             else:
                 for index in range(len(card["card_faces"])):
                     print(f"Side {index+1}: {card['card_faces'][index]['oracle_text']}")
-            print(f"{card['type_line']}" f"\n{card['set_name']}")
+            print(f"{card['rarity'].capitalize()} {card['type_line']}")
 
             # checks if creature
             if "power" in card and "toughness" in card:
                 print(f"Power/Toughness: {card['power']}/{card['toughness']}")
 
+            print(f"Card art: {card['image_uris']['art_crop']} by {card['artist']}")
+
         elif response.status_code == 404:
             print(f'Invalid card name: "{card_choice}"')
-
         else:
             print(f"Failed with status code: {response.status_code}")
 
@@ -44,45 +44,51 @@ if __name__ == "__main__":
     main()
 
 
-"""A few directions worth considering, roughly ordered by how much they'd add to the portfolio signal:
+"""
+Under Development:
 
-Deck list manager (highest value)
-Add the ability to build, save, and load a deck — store card names and quantities to a JSON or CSV file. 
-This reuses your file I/O muscle from the flashcard project but in a domain-specific context, and it's something a real MTG player would actually use. 
-A Deck class with methods like add_card, remove_card, show_deck, and total_mana_curve would demonstrate OOP in a natural way rather than a contrived one.
+- User-Agent header
+Scryfall's docs specifically ask that tools identify themselves with a header 
+Example: {"User-Agent": "MTGLookupTool/1.0 (email)"}. 
 
-Card class + richer data
-Right now card is just a raw dict you're pulling keys off. 
-Wrapping it in a Card class with properties would clean the code significantly and show you understand encapsulation. 
-Scryfall also returns price data in the prices field — a card's current market value is exactly the kind of thing a collector wants at a glance.
+-Card class
+Currently pulling keys off a raw dictionary. 
+Wrapping the response in a Card class with proper attributes — 
+name, mana cost, type line, rarity, oracle text, prices — 
+cleans the code significantly and demonstrates encapsulation.
 
-Caching layer
-Right now every lookup hits the API cold. 
-A simple dict-based cache (or even writing to a local JSON file) that checks 
-if you've already fetched a card before making the request would demonstrate awareness of API etiquette and efficiency. 
-Scryfall's docs actually ask developers to avoid repeat requests for the same data.
+- rich library for output
+Formatted tables and colored output make the README screenshots look like a real tool.
+Easy to layer on once the Card class exists.
 
-argparse or click CLI
-The input() loop works but screams tutorial. 
-Accepting a card name as a command-line argument — python mtg.py "Black Lotus" — 
-is how real tools work and gives you a chance to handle optional flags like --price-only or --set.
+- argparse CLI
+Replacing the input() loop with command-line arguments — python mtg.py "Black Lotus." 
+Optional flags like --price-only or --set give natural control flow to write.
 
-Advanced search endpoint
-Scryfall has a /cards/search endpoint that accepts their full query syntax (e.g., cmc=3 type:creature color:blue). 
-Supporting that would let the tool pull a list of results, which means handling pagination and iteration — 
-a meaningfully harder problem than single-card lookup.
+Error handling and retry logic
+Handle non-200 responses explicitly — 404 should surface Scryfall's own error message to the user. 
+Transient failures like timeouts and 429 rate limit responses should trigger a retry with a short delay between attempts. 
+Cap retries at a reasonable maximum before failing gracefully. 
+This logic belongs centralized in the API client so nothing else has to think about it.
 
-rich library for output
-Low effort, high visual payoff. 
-A formatted table or colored card display makes screenshots actually look like something in a README.
+- JSON cache
+Check a local file before hitting the API. 
+If the card is already there, return it. If not, fetch it, store it, return it. 
+Scryfall's docs explicitly ask developers to avoid repeat requests for the same data.
 
-ScryfallClient cache class
-- 50-100ms delay between requests
-- Cache repeated lookups — they specifically call this out. 
-- If someone looks up "Lightning Bolt" twice in a session, hitting the API again is wasteful. 
-- User-Agent header — they ask that apps identify themselves. Easy to add:
-```
-pythonheaders = {"User-Agent": "MTGLookupTool/1.0 (your@email.com)"}
-response = requests.get(url, headers=headers)
-```
+- Deck class
+A Deck with add_card, remove_card, show_deck, and save/load to JSON or CSV.
+Reuses the file I/O and Card class, which shows the pieces of the project working together.
+
+- SQLite cache
+Once the JSON cache works, swapping the storage layer for SQLite.
+
+- Advanced search + pagination
+Scryfall's /cards/search endpoint accepts their full query syntax — cmc=3 type:creature color:blue — 
+Returns a paginated list of results. 
+
+Later:
+- Streamlit / Pydantic
+Pydantic would replace or enhance the Card class with automatic type validation on incoming data. 
+Streamlit would give a basic web UI with minimal effort.
 """
